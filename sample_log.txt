@@ -1,0 +1,13 @@
+[2026-02-22 14:53:00] Detected write gap 72 MB in file "fozpipelinesv6\steam_pipeline_cache.foz"
+[2026-02-22 14:53:05] Increasing target number of download connections to 4 (rate was 0.000, now 196.554)
+[2026-02-22 14:53:07] Created download interface of type 'SteamCache' (7) to host cache22-iad1.steamcontent.com
+[2026-02-22 14:53:14] AppID 1174180 Shader update changed : Running Update,
+[2026-02-22 14:53:14] AppID 1174180 Shader update changed : Running Update, Committing,
+[2026-02-22 14:53:14] AppID 1174180 starting commit from "/home/evan/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/shadercache/1174180/" : 1 updated, 0 moved, 0 deleted files
+[2026-02-22 14:53:14] AppID 1174180 Shader update changed : Running Update,
+[2026-02-22 14:53:14] AppID 1174180 Shader update changed : None
+[2026-02-22 14:53:14] AppID 1174180 state changed : Fully Installed, Update Queued,
+[2026-02-22 14:53:14] AppID 1174180 state changed : Fully Installed,
+[2026-02-22 14:53:14] AppID 1174180 scheduler finished : removed from schedule (result No Error, state 0xc)
+[2026-02-22 14:54:06] Current download rate: 0.000 Mbps
+[2026-02-22 14:54:10] HTTPS (SteamCache, 568) - cache22-iad1.steamcontent.com ([2602:801:f002:102::a2fe:c02d]:443 connection
