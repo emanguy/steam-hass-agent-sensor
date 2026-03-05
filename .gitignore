@@ -1,2 +1,4 @@
 /build/
 /.idea/
+/game_cache.json
+.env

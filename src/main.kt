@@ -1,21 +1,25 @@
+import io.github.cdimascio.dotenv.Dotenv
 import kotlinx.serialization.json.Json
 import java.io.File
+import kotlin.io.path.Path
+import kotlin.io.path.bufferedReader
+import kotlin.io.path.div
 
 val jsonFormat = Json {
-    prettyPrint = true
     explicitNulls = false
     ignoreUnknownKeys = true
 }
 
-
-// Sensors:
-//   Steam updating (t/f)
-//   App name (string)
-//   App image (url string)
-
 fun main() {
+    val dotenv = Dotenv.configure()
+        .ignoreIfMissing()
+        .load()
+    val homeDir = Path(System.getProperty("user.home"))
+    val steamLogFile = dotenv["STEAM_CONTENT_LOG"]?.let { Path(it) }
+        ?: (homeDir / ".var/app/com.valvesoftware.Steam/data/Steam/logs/content_log.txt")
+
     val appIdUpdateRegex = "^] AppID (\\d+) state changed : (.*)$".toRegex()
-    val appUpdateLine = File("./sample_log.txt").bufferedReader().useLines { lines ->
+    val appUpdateLine = steamLogFile.bufferedReader().useLines { lines ->
         lines
             .map { line ->
                 line.dropWhile { it != ']' }
@@ -28,8 +32,10 @@ fun main() {
         return
     }
 
+    val gameCache = GameDataCache(File("./game_cache.json"))
+
     val (_, appId, commaSepStates) = appIdUpdateRegex.matchEntire(appUpdateLine)!!.groupValues
-    val game = getGame(appId.toInt())
+    val game = gameCache.cachedValueOr(appId.toInt()) { getGame(appId.toInt()) }
     val updateState = determineUpdateState(commaSepStates.split(","))
 
     val sensorSet = sensorsUpdating(game.name, game.headerImage, updateState)
@@ -74,7 +80,7 @@ fun sensorsUpdating(appName: String, appImageUrl: String, updateState: UpdateSta
         schedule = SCHEDULE,
         sensors = listOf(
             Sensor(
-                sensorName = "Steam Updating",
+                sensorName = "Steam Update State",
                 sensorIcon = "mdi:steam",
                 sensorState = updateState.stringState,
             ),
