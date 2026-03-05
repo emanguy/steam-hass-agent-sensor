@@ -7,17 +7,13 @@ enum class SensorType {
   BOOLEAN
 }
 
-@Serializable
 enum class UpdateState {
-  @SerialName("idle")
   IDLE {
     override val stringState = "idle"
   },
-  @SerialName("updating")
   UPDATING {
     override val stringState = "updating"
   },
-  @SerialName("updated")
   UPDATED {
     override val stringState = "updated"
   };
