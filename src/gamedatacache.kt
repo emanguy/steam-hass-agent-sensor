@@ -11,7 +11,7 @@ class GameDataCache(private val backingFile: File, private val nowFunc: () -> In
     private var data: MutableMap<Int, CachedGame> = mutableMapOf()
     private var dataLoaded = false
 
-    fun cachedValueOr(appId: Int, fetchFn: () -> Game): Game {
+    fun cachedValueOr(appId: Int, fetchFn: () -> Game?): Game? {
         if (!dataLoaded && backingFile.exists()) {
             data = jsonFormat.decodeFromString(backingFile.readText())
             dataLoaded = true
@@ -22,7 +22,7 @@ class GameDataCache(private val backingFile: File, private val nowFunc: () -> In
             return maybeCachedGame.game
         }
 
-        val freshGame = fetchFn()
+        val freshGame = fetchFn() ?: return data[appId]?.game
         this.data[appId] = CachedGame(game = freshGame, cacheTime = nowFunc())
         this.clearOldGames()
         backingFile.writeText(jsonFormat.encodeToString(data))

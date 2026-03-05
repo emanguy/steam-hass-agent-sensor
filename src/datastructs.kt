@@ -29,6 +29,8 @@ data class Sensor(
   val sensorIcon: String, 
   @SerialName("sensor_state")
   val sensorState: String,
+  @SerialName("sensor_attributes")
+  val sensorAttributes: Map<String, String> = emptyMap(),
   @SerialName("sensor_type")
   val sensorType: SensorType? = null,
 )
