@@ -1,7 +1,7 @@
-# Steam go-hass-agent sensors
+# Steam go-hass-agent sensors for Home Assistant
 
 This project provides a script and java JAR file for reporting your Steam client upload status
-via [go-hass-agent](https://github.com/joshuar/go-hass-agent)
+to Home Assistant via [go-hass-agent](https://github.com/joshuar/go-hass-agent)
 on Linux.
 It reads the Steam content_log.txt and determines the upload status that way. It also uses the Steam Store API
 to pull the name of the app being updated and a URL for the game art.
